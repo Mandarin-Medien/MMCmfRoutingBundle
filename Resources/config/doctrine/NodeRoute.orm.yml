@@ -1,0 +1,22 @@
+MandarinMedien\MMCmfRoutingBundle\Entity\NodeRoute:
+    type: entity
+    table: null
+    repositoryClass: MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        route:
+            type: string
+            length: 255
+            unique: true
+    oneToOne:
+        node:
+            targetEntity: MandarinMedien\MMCmfNodeBundle\Entity\Node
+            inversedBy: route
+            nullable: false
+
+    lifecycleCallbacks: {  }

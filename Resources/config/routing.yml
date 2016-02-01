@@ -1,3 +1,5 @@
-mm_cmf_routing_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: MMCmfRoutingBundle:Default:index }
+mm_cmf_routing:
+    path:     /{noderoute}
+    defaults: { _controller: AppBundle:PageTest:test }
+    requirements:
+        noderoute: .+

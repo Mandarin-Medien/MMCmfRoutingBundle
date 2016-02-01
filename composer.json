@@ -2,18 +2,18 @@
     "name": "mandarinmedien/mmcmfroutingbundle",
     "description": "provides the routing for page-entities",
     "require": {
-        "mandarinmedien/mmcmfpagebundle": "0.*"
+        "mandarinmedien/mmcmfnodebundle": "0.*"
     },
     "autoload" : {
         "psr-0" : {
             "MandarinMedien\\MMCmfRoutingBundle" : ""
         }
     },
-    "target-dir" : "MandarinMedien/MMCmfRoutingBundle",
+    "target-dir" : "MandarinMedien/MMCmfNodeBundle",
     "repositories": [
         {
             "type": "git",
-            "url": "git@github.com:Mandarin-Medien/MMCmfPageBundle.git"
+            "url": "git@github.com:Mandarin-Medien/MMCmfNodeBundle.git"
         }
     ],
     "license": "MIT",
