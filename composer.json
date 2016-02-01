@@ -1,0 +1,18 @@
+{
+    "name": "mandarinmedien/mmcmfroutingbundle",
+    "description": "provides the routing for page-entitites",
+    "require": {
+        "mandarinmedien/mmcmfpagebundle": "0.*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Christof Hufnagel",
+            "email": "ch@mandarin-medien.de"
+        },
+        {
+            "name": "Toni Gurski",
+            "email": "tg@mandarin-medien.de"
+        }
+    ]
+}

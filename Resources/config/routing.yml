@@ -1,0 +1,3 @@
+mm_cmf_routing_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: MMCmfRoutingBundle:Default:index }
