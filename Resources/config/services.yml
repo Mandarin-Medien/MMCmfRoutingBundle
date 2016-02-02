@@ -10,3 +10,14 @@ services:
           arguments: ["@doctrine.orm.entity_manager", "mm_cmf_routing.route_loader._controller"]
           tags:
               - { name: routing.loader }
+
+      mm_cmf_routing.node_route_type:
+          class: MandarinMedien\MMCmfRoutingBundle\Form\Type\NodeRouteType
+          arguments: [@doctrine.orm.entity_manager]
+          tags:
+              - {name: form.type, alias: node_route_type}
+
+      mm_cmf_routing.node_route_handler:
+          class: MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteHandler
+          arguments: [@doctrine.orm.entity_manager]
+

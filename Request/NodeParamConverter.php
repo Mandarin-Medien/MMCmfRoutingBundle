@@ -24,19 +24,19 @@ class NodeParamConverter implements ParamConverterInterface
      */
     function apply(Request $request, ParamConverter $configuration)
     {
+
         $route = $this->manager->getRepository($this->repositoryClass)->findOneBy(array(
             'route' => $request->getPathInfo()
         ));
 
-        if(! $route) {
-            throw new NotFoundHttpException();
+        if($route) {
+            $request->attributes->add(
+                array($configuration->getName() => $route->getNode())
+            );
+            return true;
         }
 
-        $request->attributes->add(
-            array($configuration->getName() => $route->getNode())
-        );
-
-        return true;
+        return false;
     }
 
 

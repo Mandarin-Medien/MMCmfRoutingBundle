@@ -1,6 +1,7 @@
 <?php
 
 namespace MandarinMedien\MMCmfRoutingBundle\Entity;
+use MandarinMedien\MMCmfNodeBundle\Entity\Node;
 
 /**
  * NodeRoute
@@ -13,7 +14,7 @@ class NodeRoute
     private $id;
 
     /**
-     * @var integer
+     * @var Node
      */
     private $node;
 
@@ -21,6 +22,18 @@ class NodeRoute
      * @var string
      */
     private $route;
+
+
+    /**
+     * @var bool
+     */
+    private $generic;
+
+
+    public function __construct()
+    {
+        $this->setGeneric(true);
+    }
 
 
     /**
@@ -36,11 +49,11 @@ class NodeRoute
     /**
      * Set node
      *
-     * @param integer $node
+     * @param Node $node
      *
      * @return NodeRoute
      */
-    public function setNode($node)
+    public function setNode(Node $node)
     {
         $this->node = $node;
 
@@ -50,7 +63,7 @@ class NodeRoute
     /**
      * Get node
      *
-     * @return integer
+     * @return Node
      */
     public function getNode()
     {
@@ -79,6 +92,30 @@ class NodeRoute
     public function getRoute()
     {
         return $this->route;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isGeneric()
+    {
+        return $this->generic;
+    }
+
+    /**
+     * @param boolean $generic
+     * @return NodeRoute
+     */
+    public function setGeneric($generic)
+    {
+        $this->generic = $generic;
+        return $this;
+    }
+
+
+    public function __toString()
+    {
+        return $this->getRoute();
     }
 }
 

@@ -2,7 +2,8 @@
     "name": "mandarinmedien/mmcmfroutingbundle",
     "description": "provides the routing for page-entities",
     "require": {
-        "mandarinmedien/mmcmfnodebundle": "0.*"
+        "mandarinmedien/mmcmfnodebundle": "0.*",
+        "brandonwamboldt/utilphp": "1.1.*"
     },
     "autoload" : {
         "psr-0" : {
