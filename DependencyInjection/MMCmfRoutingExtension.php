@@ -24,5 +24,14 @@ class MMCmfRoutingExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $this->configureRouter($container, $config);
+    }
+
+    public function configureRouter(ContainerBuilder $container, $config)
+    {
+        $container->getDefinition('mm_cmf_routing.routing_loader')
+            ->replaceArgument(1, $config['route_loader']['_controller']);
+
     }
 }

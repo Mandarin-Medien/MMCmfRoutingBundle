@@ -13,11 +13,14 @@ class NodeRouteLoader extends Loader
 
     private $loaded = false;
     private $manager;
+    private $controller;
     private $repositoryClass = 'MandarinMedien\MMCmfRoutingBundle\Entity\NodeRoute';
 
-    public function __construct(EntityManager $manager)
+    public function __construct(EntityManager $manager, $controller = "MMCmfRoutingBundle:NodeRoute:node")
     {
         $this->manager = $manager;
+        $this->controller = $controller;
+
     }
 
     public function load($resource, $type = null)
@@ -36,7 +39,7 @@ class NodeRouteLoader extends Loader
 
             $path = $node_route->getRoute();
             $defaults = array(
-                '_controller' => 'MMCmfRoutingBundle:NodeRoute:node'
+                '_controller' => $this->controller
             );
 
             /**
