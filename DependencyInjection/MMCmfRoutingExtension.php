@@ -30,8 +30,9 @@ class MMCmfRoutingExtension extends Extension
 
     public function configureRouter(ContainerBuilder $container, $config)
     {
-        $container->getDefinition('mm_cmf_routing.routing_loader')
-            ->replaceArgument(1, $config['route_loader']['_controller']);
+        if(!empty($config['route_loader']))
+            $container->getDefinition('mm_cmf_routing.routing_loader')
+                ->replaceArgument(1, $config['route_loader']['_controller']);
 
     }
 }
