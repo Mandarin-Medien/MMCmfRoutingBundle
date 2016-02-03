@@ -6,6 +6,8 @@ MandarinMedien\MMCmfRoutingBundle\Entity\NodeRoute:
         default: NodeRoute
         auto: AutoNodeRoute
         custom: CustomNodeRoute
+        redirect: RedirectNodeRoute
+
     repositoryClass: MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteRepository
     id:
         id:

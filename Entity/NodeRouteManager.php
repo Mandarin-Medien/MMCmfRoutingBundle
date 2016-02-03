@@ -64,31 +64,25 @@ class NodeRouteManager
             foreach($routes as $route) {
 
                 if($route instanceof AutoNodeRoute) {
+
                     $route->setRoute(
                         $base   ? $base . '/' . util::slugify($node->getName())
                                 : $this->generateAutoNodeRoute($node)->getRoute()
                     );
 
                     array_push($routeObjects, $route);
+
+                    // recursive loop
+                    foreach($node->getNodes() as $node) {
+                        $routeObjects = array_merge(
+                            $this->getAutoNodeRoutesRecursive($node, $route->getRoute()),
+                            $routeObjects
+                        );
+                    }
                 }
             }
         }
 
-
-        // recursive run for Node:nodes
-        $childs = $node->getNodes();
-        if(!is_null($childs)) {
-
-            /**
-             * @var Node $child
-             */
-            foreach($childs as &$child) {
-                 $routeObjects = array_merge(
-                     $this->getAutoNodeRoutesRecursive($child, $route->getRoute()),
-                     $routeObjects
-                 );
-            }
-        }
 
         return $routeObjects;
     }

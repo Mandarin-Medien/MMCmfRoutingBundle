@@ -16,11 +16,17 @@ class NodeRouteLoader extends Loader
     private $controller;
     private $repositoryClass = 'MandarinMedien\MMCmfRoutingBundle\Entity\NodeRoute';
 
-    public function __construct(EntityManager $manager, $controller = "MMCmfRoutingBundle:NodeRoute:node")
-    {
+    public function __construct(
+        EntityManager $manager,
+        $controller = array(
+            'default' => "MMCmfRoutingBundle:NodeRoute:node",
+            'auto' => "MMCmfRoutingBundle:NodeRoute:node",
+            'custom' => "MMCmfRoutingBundle:NodeRoute:node",
+            'redirect' => "MMCmfRoutingBundle:NodeRoute:redirect"
+        )
+    ) {
         $this->manager = $manager;
         $this->controller = $controller;
-
     }
 
     public function load($resource, $type = null)
@@ -38,8 +44,14 @@ class NodeRouteLoader extends Loader
         foreach($node_routes as $node_route) {
 
             $path = $node_route->getRoute();
+
+            // select the mapped controller for NodeRoute by discriminator value
             $defaults = array(
-                '_controller' => $this->controller
+                '_controller' => $this->controller[
+                    $this->manager
+                        ->getClassMetadata(get_class($node_route))
+                        ->discriminatorValue
+                    ]
             );
 
             /**
@@ -51,7 +63,7 @@ class NodeRouteLoader extends Loader
                     'route' => $node_route
                 ));
 
-                $routeName = 'cmf_node_' . $node->getId();
+                $routeName = 'cmf_node_route_' . $node_route->getId();
                 $routes->add($routeName, $route);
             }
         }

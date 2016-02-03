@@ -1,0 +1,4 @@
+MandarinMedien\MMCmfRoutingBundle\Entity\RedirectNodeRoute:
+    type: entity
+    table: null
+    lifecycleCallbacks: {  }

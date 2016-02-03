@@ -32,7 +32,7 @@ class MMCmfRoutingExtension extends Extension
     {
         if(!empty($config['route_loader']))
             $container->getDefinition('mm_cmf_routing.routing_loader')
-                ->replaceArgument(1, $config['route_loader']['_controller']);
+                ->replaceArgument(1, $config['route_loader']['_controllers']);
 
     }
 }
