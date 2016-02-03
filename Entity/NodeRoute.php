@@ -29,18 +29,6 @@ class NodeRoute
 
 
     /**
-     * @var bool
-     */
-    private $generic;
-
-
-    public function __construct()
-    {
-        $this->setGeneric(true);
-    }
-
-
-    /**
      * Get id
      *
      * @return integer
@@ -96,24 +84,6 @@ class NodeRoute
     public function getRoute()
     {
         return $this->route;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isGeneric()
-    {
-        return $this->generic;
-    }
-
-    /**
-     * @param boolean $generic
-     * @return NodeRoute
-     */
-    public function setGeneric($generic)
-    {
-        $this->generic = $generic;
-        return $this;
     }
 
 

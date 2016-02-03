@@ -2,7 +2,6 @@
 
 namespace MandarinMedien\MMCmfRoutingBundle\Entity;
 
-use Doctrine\ORM\EntityManager;
 use MandarinMedien\MMCmfNodeBundle\Entity\Node;
 use utilphp\util;
 
@@ -19,29 +18,17 @@ class NodeRouteManager
 {
 
     /**
-     * @var EntityManager
-     */
-    private $manager;
-
-
-    public function __construct(EntityManager $manager)
-    {
-        $this->manager = $manager;
-    }
-
-
-    /**
-     * generates a NodeRoute for a given Node
+     * generates a AutoNodeRoute for a given Node
      *
      * @TODO: check for duplicate uri's and append a count var to slug or similar
      *
      * @param Node $node
-     * @return NodeRoute
+     * @return AutoNodeRoute
      */
-    public function autoGenerateNodeRoute(Node $node)
+    public function generateAutoNodeRoute(Node $node)
     {
 
-        $route = (new NodeRoute())
+        $route = (new AutoNodeRoute())
             ->setRoute('/' . $this->slugify($node))
             ->setNode($node);
 
@@ -57,20 +44,38 @@ class NodeRouteManager
     }
 
 
-    public function updateNodeRoutesRecursive(Node &$node, $base = null)
+    /**
+     * get updated AutoNodeRoutes recursive
+     *
+     * @param Node $node
+     * @param null|string $base
+     * @return NodeRoute[]
+     */
+    public function getAutoNodeRoutesRecursive(Node &$node, $base = null)
     {
         $routeObjects = array();
 
         $route = null;
         $routes = $node->getRoutes();
-        if(count($routes)>0) {
-            $route = $routes[0];
-            $route->setRoute($base ? $base.'/'.util::slugify($node->getName()): $this->autoGenerateNodeRoute($node)->getRoute());
 
-            array_push($routeObjects, $route);
+        // update the AutoNodeRoutes of current Node
+        if(count($routes)>0) {
+
+            foreach($routes as $route) {
+
+                if($route instanceof AutoNodeRoute) {
+                    $route->setRoute(
+                        $base   ? $base . '/' . util::slugify($node->getName())
+                                : $this->generateAutoNodeRoute($node)->getRoute()
+                    );
+
+                    array_push($routeObjects, $route);
+                }
+            }
         }
 
 
+        // recursive run for Node:nodes
         $childs = $node->getNodes();
         if(!is_null($childs)) {
 
@@ -78,7 +83,10 @@ class NodeRouteManager
              * @var Node $child
              */
             foreach($childs as &$child) {
-                 $routeObjects = array_merge($this->updateNodeRoutesRecursive($child, $route->getRoute()), $routeObjects);
+                 $routeObjects = array_merge(
+                     $this->getAutoNodeRoutesRecursive($child, $route->getRoute()),
+                     $routeObjects
+                 );
             }
         }
 

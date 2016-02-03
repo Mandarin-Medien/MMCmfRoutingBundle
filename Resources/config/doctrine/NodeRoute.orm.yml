@@ -1,6 +1,11 @@
 MandarinMedien\MMCmfRoutingBundle\Entity\NodeRoute:
     type: entity
     table: null
+    inheritanceType: SINGLE_TABLE
+    discriminatorMap:
+        default: NodeRoute
+        auto: AutoNodeRoute
+        custom: CustomNodeRoute
     repositoryClass: MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteRepository
     id:
         id:
@@ -13,8 +18,6 @@ MandarinMedien\MMCmfRoutingBundle\Entity\NodeRoute:
             type: string
             length: 255
             unique: true
-        generic:
-            type: boolean
 
     manyToOne:
         node:

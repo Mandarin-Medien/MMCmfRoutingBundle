@@ -19,8 +19,9 @@ services:
 
       mm_cmf_routing.node_route_manager:
           class: MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteManager
-          arguments: [@doctrine.orm.entity_manager]
 
+
+      # Validation Constraints
       mm_cmf_routing.validator.node_route_unique:
           class: MandarinMedien\MMCmfRoutingBundle\Validator\Constraints\NodeRouteUniqueValidator
           calls:
@@ -28,11 +29,11 @@ services:
           tags:
               - { name: validator.constraint_validator, alias: "node_route_unique" }
 
+
+      # Doctrine Event Listener
       mm_cmf_routing.listener:
-          class: MandarinMedien\MMCmfRoutingBundle\EventListener\NodeRouteUpdater
-          #arguments: [@mm_cmf_routing.node_route_manager]
+          class: MandarinMedien\MMCmfRoutingBundle\EventListener\AutoNodeRouteUpdateListener
           tags:
               - {name: doctrine.event_listener, event: prePersist}
-              - {name: doctrine.event_listener, event: preUpdate}
-              - {name: doctrine.event_listener, event: postFlush}
+              - {name: doctrine.event_listener, event: onFlush}
 
