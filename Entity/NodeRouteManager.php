@@ -7,7 +7,7 @@ use MandarinMedien\MMCmfNodeBundle\Entity\Node;
 use utilphp\util;
 
 /**
- * Class NodeRouteHandler
+ * Class NodeRouteManager
  *
  * Handles the generating, persisting and updating of NodeRoutes
  *
@@ -15,7 +15,7 @@ use utilphp\util;
  *
  * @package MandarinMedien\MMCmfRoutingBundle\Entity
  */
-class NodeRouteHandler
+class NodeRouteManager
 {
 
     /**
@@ -54,6 +54,35 @@ class NodeRouteHandler
         }
 
         return $route;
+    }
+
+
+    public function updateNodeRoutesRecursive(Node &$node, $base = null)
+    {
+        $routeObjects = array();
+
+        $route = null;
+        $routes = $node->getRoutes();
+        if(count($routes)>0) {
+            $route = $routes[0];
+            $route->setRoute($base ? $base.'/'.util::slugify($node->getName()): $this->autoGenerateNodeRoute($node)->getRoute());
+
+            array_push($routeObjects, $route);
+        }
+
+
+        $childs = $node->getNodes();
+        if(!is_null($childs)) {
+
+            /**
+             * @var Node $child
+             */
+            foreach($childs as &$child) {
+                 $routeObjects = array_merge($this->updateNodeRoutesRecursive($child, $route->getRoute()), $routeObjects);
+            }
+        }
+
+        return $routeObjects;
     }
 
 

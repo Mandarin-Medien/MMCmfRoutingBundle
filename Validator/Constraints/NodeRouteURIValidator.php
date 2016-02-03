@@ -2,8 +2,6 @@
 
 namespace MandarinMedien\MMCmfRoutingBundle\Validator\Constraints;
 
-use Doctrine\ORM\EntityManager;
-use MandarinMedien\MMCmfRoutingBundle\Entity\NodeRoute;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
