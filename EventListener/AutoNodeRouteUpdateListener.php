@@ -31,12 +31,14 @@ class AutoNodeRouteUpdateListener
         // update child routes
         $entity = $args->getEntity();
 
-        if (!$entity instanceof Node) {
-            return;
+        if (    $entity instanceof Node
+            &&  $entity->isRouteGeneration()
+        ) {
+            $routeManager = new NodeRouteManager();
+            $entity->addRoute($routeManager->generateAutoNodeRoute($entity));
         }
 
-        $routeManager = new NodeRouteManager();
-        $entity->addRoute($routeManager->generateAutoNodeRoute($entity));
+        return;
     }
 
 
@@ -53,7 +55,9 @@ class AutoNodeRouteUpdateListener
 
         foreach($unit->getScheduledEntityUpdates() as $entity) {
 
-            if($entity instanceof Node) {
+            if(     $entity instanceof Node
+                &&  $entity->isRouteGeneration()
+            ) {
 
                 // check if Node::name has changed
                 $changed = $unit->getEntityChangeSet($entity);
