@@ -2,9 +2,12 @@
 
 namespace MandarinMedien\MMCmfRoutingBundle\Entity;
 use MandarinMedien\MMCmfNodeBundle\Entity\Node;
+use Symfony\Component\Validator\Constraints as Assert;
+use MandarinMedien\MMCmfRoutingBundle\Validator\Constraints as RoutingAssert;
 
 /**
  * NodeRoute
+ * @RoutingAssert\NodeRouteUnique
  */
 class NodeRoute
 {
@@ -19,7 +22,8 @@ class NodeRoute
     private $node;
 
     /**
-     * @var string
+     * @Assert\NotBlank
+     * @RoutingAssert\NodeRouteURI
      */
     private $route;
 

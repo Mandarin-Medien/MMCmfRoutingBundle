@@ -21,3 +21,10 @@ services:
           class: MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteHandler
           arguments: [@doctrine.orm.entity_manager]
 
+      mm_cmf_routing.validator.node_route_unique:
+          class: MandarinMedien\MMCmfRoutingBundle\Validator\Constraints\NodeRouteUniqueValidator
+          calls:
+              - ["setManager", [@doctrine.orm.entity_manager]]
+          tags:
+              - { name: validator.constraint_validator, alias: "node_route_unique" }
+
