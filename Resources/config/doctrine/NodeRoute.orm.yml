@@ -5,10 +5,9 @@ MandarinMedien\MMCmfRoutingBundle\Entity\NodeRoute:
     discriminatorMap:
         default: NodeRoute
         auto: AutoNodeRoute
-        custom: CustomNodeRoute
+        alias: AliasNodeRoute
         redirect: RedirectNodeRoute
 
-    repositoryClass: MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteRepository
     id:
         id:
             type: integer

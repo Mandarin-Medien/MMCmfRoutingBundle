@@ -1,5 +1,5 @@
-mm_cmf_routing:
-    path:     /{noderoute}
-    defaults: { _controller: AppBundle:PageTest:test }
+mm_cmf_node_route:
+    path:     /{route}
+    defaults: { _controller: "mm_cmf_routing.node_route_controller:nodeRouteAction"}
     requirements:
-        noderoute: .+
+        route: .+

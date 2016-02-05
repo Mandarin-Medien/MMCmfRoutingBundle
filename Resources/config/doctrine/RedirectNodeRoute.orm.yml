@@ -1,4 +1,8 @@
 MandarinMedien\MMCmfRoutingBundle\Entity\RedirectNodeRoute:
     type: entity
     table: null
+    fields:
+        statusCode:
+            type: integer
+            length: 3
     lifecycleCallbacks: {  }

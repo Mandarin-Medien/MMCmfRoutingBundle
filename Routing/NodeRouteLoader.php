@@ -8,6 +8,7 @@ use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
+
 class NodeRouteLoader extends Loader
 {
 
@@ -21,7 +22,7 @@ class NodeRouteLoader extends Loader
         $controller = array(
             'default' => "MMCmfRoutingBundle:NodeRoute:node",
             'auto' => "MMCmfRoutingBundle:NodeRoute:node",
-            'custom' => "MMCmfRoutingBundle:NodeRoute:node",
+            'alias' => "MMCmfRoutingBundle:NodeRoute:node",
             'redirect' => "MMCmfRoutingBundle:NodeRoute:redirect"
         )
     ) {
@@ -29,6 +30,10 @@ class NodeRouteLoader extends Loader
         $this->controller = $controller;
     }
 
+
+    /**
+     * {@inheritdoc}
+     */
     public function load($resource, $type = null)
     {
         if (true === $this->loaded) {
@@ -73,6 +78,10 @@ class NodeRouteLoader extends Loader
         return $routes;
     }
 
+
+    /**
+     * {@inheritdoc}
+     */
     public function supports($resource, $type = null)
     {
         return 'mm_cmf_routing' === $type;

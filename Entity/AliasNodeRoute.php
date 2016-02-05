@@ -3,9 +3,9 @@
 namespace MandarinMedien\MMCmfRoutingBundle\Entity;
 
 /**
- * CustomNodeRoute
+ * AliasNodeRoute
  */
-class CustomNodeRoute extends NodeRoute
+class AliasNodeRoute extends NodeRoute
 {
 }
 

@@ -3,14 +3,36 @@
 namespace MandarinMedien\MMCmfRoutingBundle\Controller;
 
 use MandarinMedien\MMCmfRoutingBundle\Entity\AutoNodeRoute;
+use MandarinMedien\MMCmfRoutingBundle\Entity\RedirectNodeRoute;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use MandarinMedien\MMCmfNodeBundle\Entity\Node;
+use MandarinMedien\MMCmfRoutingBundle\Entity\NodeRoute;
+use Symfony\Component\BrowserKit\Response;
 
 class NodeRouteController extends Controller
 {
-    public function nodeAction(Node $node)
+
+    /**
+     * @var string default Template
+     */
+    protected $defaultView = "MMCmfRoutingBundle:Default:index.html.twig";
+
+    public function nodeRouteAction(NodeRoute $nodeRoute)
     {
-        return $this->render('MMCmfRoutingBundle:Default:index.html.twig', array('node' => $node));
+
+
+        if ($nodeRoute instanceof RedirectNodeRoute) {
+            return $this->redirectAction($nodeRoute);
+        } else {
+
+            return $this->render(
+                $this->getDefaultView(),
+                array(
+                    'node' => $nodeRoute->getNode(),
+                    'route' => $nodeRoute
+                )
+            );
+        }
     }
 
 
@@ -24,17 +46,35 @@ class NodeRouteController extends Controller
      * @param Node $node
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function redirectAction(Node $node)
+    public function redirectAction(RedirectNodeRoute $nodeRoute)
     {
-        foreach($node->getRoutes() as $route) {
+
+        $status = $nodeRoute->getStatusCode();
+
+        foreach($nodeRoute->getNode()->getRoutes() as $route) {
             if($route instanceof AutoNodeRoute) {
-
-                // get the route name
-                $router = $this->get('router');
-                $route  = $router->match($route->getRoute());
-
-                return $this->redirectToRoute($route['_route'], array(), 301);
+                return $this->redirectToRoute("mm_cmf_node_route", array(
+                    'route' => trim($route->getRoute(), '/')
+                ), $status);
             }
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDefaultView()
+    {
+        return $this->defaultView;
+    }
+
+    /**
+     * @param string $defaultView
+     * @return NodeRouteController
+     */
+    public function setDefaultView($defaultView)
+    {
+        $this->defaultView = $defaultView;
+        return $this;
     }
 }

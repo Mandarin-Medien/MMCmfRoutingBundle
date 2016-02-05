@@ -4,9 +4,13 @@ namespace MandarinMedien\MMCmfRoutingBundle\EventListener;
 
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PostFlushEventArgs;
 use MandarinMedien\MMCmfNodeBundle\Entity\Node;
 use MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteManager;
 use Doctrine\ORM\Event\OnFlushEventArgs;
+use MandarinMedien\MMCmfRoutingBundle\Routing\NodeRouteLoader;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\DependencyInjection\Container;
 
 
 /**
@@ -18,6 +22,13 @@ use Doctrine\ORM\Event\OnFlushEventArgs;
  */
 class AutoNodeRouteUpdateListener
 {
+
+    private $container;
+
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
 
     /**
      * prePersist Event
@@ -67,9 +78,21 @@ class AutoNodeRouteUpdateListener
                     // update all child AutoNodeRoutes
                     $routeManager->getAutoNodeRoutesRecursive($entity);
                     $unit->computeChangeSets();
-
                 }
             }
         }
+    }
+
+
+    public function postFlush(PostFlushEventArgs $args)
+    {
+
+
+
+        $router = $this->container->get('router');
+        $cache_dir = $this->container->getParameter('kernel.cache_dir');
+
+        $this->container->get('cache_clearer')->clear($cache_dir);
+        //$router->warmUp($cache_dir);
     }
 }

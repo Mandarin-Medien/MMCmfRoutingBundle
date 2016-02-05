@@ -5,11 +5,11 @@ services:
           tags:
               - {name: request.param_converter, priority: 1, converter: mm_cmf_routing.node_converter }
 
-      mm_cmf_routing.routing_loader:
-          class: MandarinMedien\MMCmfRoutingBundle\Routing\NodeRouteLoader
-          arguments: ["@doctrine.orm.entity_manager", "mm_cmf_routing.route_loader._controller"]
-          tags:
-              - { name: routing.loader }
+      mm_cmf_routing.node_route_converter:
+            class: MandarinMedien\MMCmfRoutingBundle\Request\NodeRouteParamConverter
+            arguments: ["@doctrine.orm.entity_manager"]
+            tags:
+                - {name: request.param_converter, priority: 1, converter: mm_cmf_routing.node_route_converter }
 
       mm_cmf_routing.node_route_type:
           class: MandarinMedien\MMCmfRoutingBundle\Form\Type\NodeRouteType
@@ -33,7 +33,16 @@ services:
       # Doctrine Event Listener
       mm_cmf_routing.listener:
           class: MandarinMedien\MMCmfRoutingBundle\EventListener\AutoNodeRouteUpdateListener
+          arguments: [@service_container]
           tags:
               - {name: doctrine.event_listener, event: prePersist}
               - {name: doctrine.event_listener, event: onFlush}
+              - {name: doctrine.event_listener, event: postFlush}
+
+      mm_cmf_routing.node_route_controller:
+          class: MandarinMedien\MMCmfRoutingBundle\Controller\NodeRouteController
+          calls:
+              - ["setContainer", [@service_container]]
+
+
 
