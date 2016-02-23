@@ -22,7 +22,6 @@ class NodeRoute
     private $node;
 
     /**
-     * @Assert\Unique
      * @Assert\NotBlank
      * @RoutingAssert\NodeRouteURI
      */
