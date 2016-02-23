@@ -73,7 +73,9 @@ class AutoNodeRouteUpdateListener
                 // check if Node::name has changed
                 $changed = $unit->getEntityChangeSet($entity);
 
-                if(array_key_exists('name', $changed)) {
+                if(     array_key_exists('name', $changed)
+                    ||  array_key_exists('parent', $changed)
+                ) {
 
                     // update all child AutoNodeRoutes
                     $routeManager->getAutoNodeRoutesRecursive($entity);
