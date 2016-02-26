@@ -2,7 +2,7 @@
     "name": "mandarinmedien/mmcmfroutingbundle",
     "description": "provides the routing for page-entities",
     "require": {
-        "mandarinmedien/mmcmfnodebundle": "dev-master",
+        "mandarinmedien/mmcmfnodebundle": "^0.0",
         "brandonwamboldt/utilphp": "1.1.*"
     },
     "license": "MIT",
