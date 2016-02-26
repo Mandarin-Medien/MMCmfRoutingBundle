@@ -5,18 +5,6 @@
         "mandarinmedien/mmcmfnodebundle": "dev-master",
         "brandonwamboldt/utilphp": "1.1.*"
     },
-    "autoload" : {
-        "psr-0" : {
-            "MandarinMedien\\MMCmfRoutingBundle" : ""
-        }
-    },
-    "target-dir" : "MandarinMedien/MMCmfNodeBundle",
-    "repositories": [
-        {
-            "type": "git",
-            "url": "git@github.com:Mandarin-Medien/MMCmfNodeBundle.git"
-        }
-    ],
     "license": "MIT",
     "authors": [
         {
