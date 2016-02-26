@@ -9,23 +9,22 @@ use MandarinMedien\MMCmfRoutingBundle\Validator\Constraints as RoutingAssert;
  * NodeRoute
  * @RoutingAssert\NodeRouteUnique
  */
-class NodeRoute
+class NodeRoute implements NodeRouteInterface
 {
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
      * @var Node
      */
-    private $node;
+    protected $node;
 
     /**
      * @Assert\NotBlank
-     * @RoutingAssert\NodeRouteURI
      */
-    private $route;
+    protected $route;
 
 
     /**
@@ -45,7 +44,7 @@ class NodeRoute
      *
      * @return NodeRoute
      */
-    public function setNode(Node $node)
+    public function setNode(Node $node = null)
     {
         $this->node = $node;
 

@@ -17,6 +17,12 @@ services:
           tags:
               - {name: form.type, alias: node_route_type}
 
+
+      mm_cmf_routing.node_route_factory:
+          class: MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteFactory
+          arguments: [@doctrine.orm.entity_manager]
+
+
       mm_cmf_routing.node_route_manager:
           class: MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteManager
 
