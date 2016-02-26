@@ -1,37 +1,26 @@
 {
-    "name": "mandarinmedien/mmcmfroutingbundle",
-    "description": "provides the routing for page-entities",
-    "require": {
-        "mandarinmedien/mmcmfnodebundle": "dev-master",
-        "brandonwamboldt/utilphp": "1.1.*"
+  "name": "mandarinmedien/mmcmfroutingbundle",
+  "description": "provides the routing for page-entities",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Christof Hufnagel",
+      "email": "ch@mandarin-medien.de"
     },
-    "autoload" : {
-        "psr-0" : {
-            "MandarinMedien\\MMCmfRoutingBundle" : ""
-        }
-    },
-    "target-dir" : "MandarinMedien/MMCmfNodeBundle",
-    "repositories": [
-        {
-            "type": "git",
-            "url": "git@github.com:Mandarin-Medien/MMCmfNodeBundle.git"
-        }
-    ],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Christof Hufnagel",
-            "email": "ch@mandarin-medien.de"
-        },
-        {
-            "name": "Toni Gurski",
-            "email": "tg@mandarin-medien.de"
-        }
-    ],
-    "autoload": {
-        "psr-0": {
-            "MandarinMedien\\MMCmfRoutingBundle": ""
-        }
-    },
-    "target-dir": "MandarinMedien/MMCmfRoutingBundle"
+    {
+      "name": "Toni Gurski",
+      "email": "tg@mandarin-medien.de"
+    }
+  ],
+  "autoload": {
+    "psr-0": {
+      "MandarinMedien\\MMCmfRoutingBundle": ""
+    }
+  },
+  "target-dir": "MandarinMedien/MMCmfRoutingBundle",
+  "require": {
+    "mandarinmedien/mmcmfnodebundle": "^0.0",
+    "brandonwamboldt/utilphp": "1.1.*"
+  }
 }
