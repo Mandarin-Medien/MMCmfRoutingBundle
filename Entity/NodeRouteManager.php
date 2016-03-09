@@ -58,7 +58,7 @@ class NodeRouteManager
 
         // add incrementor if route exists
         $route->setRoute(
-            $route->getRoute().($this->getIncrementor($route->getRoute()) ?: '')
+            $route->getRoute().($this->getIncrement($route->getRoute()) ?: '')
         );
 
 
@@ -141,7 +141,7 @@ class NodeRouteManager
      * @param string $route route string to check
      * @return int increment value
      */
-    protected function getIncrementor($route)
+    protected function getIncrement($route)
     {
 
         $mapper = new ResultSetMapping();
