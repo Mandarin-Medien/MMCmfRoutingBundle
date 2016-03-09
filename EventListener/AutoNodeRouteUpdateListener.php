@@ -45,7 +45,7 @@ class AutoNodeRouteUpdateListener
         if (    $entity instanceof Node
             &&  $entity->isRouteGeneration()
         ) {
-            $routeManager = new NodeRouteManager();
+            $routeManager = $this->container->get('mm_cmf_routing.node_route_manager');
             $entity->addRoute($routeManager->generateAutoNodeRoute($entity));
         }
 
@@ -62,7 +62,7 @@ class AutoNodeRouteUpdateListener
     {
 
         $unit = $args->getEntityManager()->getUnitOfWork();
-        $routeManager = new NodeRouteManager();
+        $routeManager = $this->container->get('mm_cmf_routing.node_route_manager');;
 
         foreach($unit->getScheduledEntityUpdates() as $entity) {
 

@@ -25,6 +25,7 @@ services:
 
       mm_cmf_routing.node_route_manager:
           class: MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteManager
+          arguments: [@doctrine.orm.entity_manager]
 
 
       # Validation Constraints
