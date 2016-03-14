@@ -3,6 +3,7 @@
 namespace MandarinMedien\MMCmfRoutingBundle\Request;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +14,7 @@ class NodeRouteParamConverter implements ParamConverterInterface
     private $manager;
     private $repositoryClass = 'MandarinMedien\MMCmfRoutingBundle\Entity\NodeRoute';
 
-    public function __construct(EntityManager $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
     }

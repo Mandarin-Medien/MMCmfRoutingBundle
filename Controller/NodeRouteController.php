@@ -7,7 +7,7 @@ use MandarinMedien\MMCmfRoutingBundle\Entity\RedirectNodeRoute;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use MandarinMedien\MMCmfNodeBundle\Entity\Node;
 use MandarinMedien\MMCmfRoutingBundle\Entity\NodeRoute;
-use Symfony\Component\BrowserKit\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class NodeRouteController extends Controller
 {
@@ -17,21 +17,35 @@ class NodeRouteController extends Controller
      */
     protected $defaultView = "MMCmfRoutingBundle:Default:index.html.twig";
 
+
+    /**
+     * process the the node route call
+     * @param NodeRoute $nodeRoute
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws NotFoundHttpException
+     */
     public function nodeRouteAction(NodeRoute $nodeRoute)
     {
 
+        if($nodeRoute->getNode()) {
 
-        if ($nodeRoute instanceof RedirectNodeRoute) {
-            return $this->redirectAction($nodeRoute);
+
+            if ($nodeRoute instanceof RedirectNodeRoute) {
+                return $this->redirectAction($nodeRoute);
+            } else {
+
+                $repo = $this->getDoctrine()->getManager()->getRepository(Node::class)->findAll();
+
+                return $this->render(
+                    $this->getDefaultView(),
+                    array(
+                        'node' => $nodeRoute->getNode(),
+                        'route' => $nodeRoute
+                    )
+                );
+            }
         } else {
-
-            return $this->render(
-                $this->getDefaultView(),
-                array(
-                    'node' => $nodeRoute->getNode(),
-                    'route' => $nodeRoute
-                )
-            );
+            throw new NotFoundHttpException();
         }
     }
 
