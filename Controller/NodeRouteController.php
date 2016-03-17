@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use MandarinMedien\MMCmfNodeBundle\Entity\Node;
 use MandarinMedien\MMCmfRoutingBundle\Entity\NodeRoute;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use MandarinMedien\MMCmfContentBundle\Entity\TemplatableNodeInterface;
 
 class NodeRouteController extends Controller
 {
@@ -29,20 +30,22 @@ class NodeRouteController extends Controller
 
         if($nodeRoute->getNode()) {
 
-
             if ($nodeRoute instanceof RedirectNodeRoute) {
                 return $this->redirectAction($nodeRoute);
             } else {
 
-                $repo = $this->getDoctrine()->getManager()->getRepository(Node::class)->findAll();
+                if ($nodeRoute->getNode() instanceof TemplatableNodeInterface) {
 
-                return $this->render(
-                    $this->getDefaultView(),
-                    array(
-                        'node' => $nodeRoute->getNode(),
-                        'route' => $nodeRoute
-                    )
-                );
+                    return $this->render(
+                        $this->get('mm_cmf_content.template_manager')->getTemplate($nodeRoute->getNode()),
+                        array(
+                            'node' => $nodeRoute->getNode(),
+                            'route' => $nodeRoute
+                        )
+                    );
+                } else {
+                    throw new NotFoundHttpException();
+                }
             }
         } else {
             throw new NotFoundHttpException();
