@@ -30,49 +30,49 @@ class NodeRouteFactory
 
 
     /**
-     * create a new NodeRoute instance by discrimator value
-     * @param string $discrimator
+     * create a new NodeRoute instance by discriminator value
+     * @param string $discriminator
      * @return NodeRouteInterface
      * @throws \Exception
      */
-    public function createNodeRoute($discrimator = 'default')
+    public function createNodeRoute($discriminator = 'default')
     {
-        $reflection = new \ReflectionClass($this->getClassByDiscrimator($discrimator));
+        $reflection = new \ReflectionClass($this->getClassByDiscriminator($discriminator));
         return $reflection->newInstance();
     }
 
 
     /**
-     * get all available discrimator values of NodeRoute entity
-     * @param array $exclude exclude specific discrimators
+     * get all available discriminator values of NodeRoute entity
+     * @param array $exclude exclude specific discriminators
      * @return array
      */
-    public function getDiscrimators($exclude = array('default', 'auto'))
+    public function getDiscriminators($exclude = array('default', 'auto'))
     {
         return array_diff(array_keys($this->meta->discriminatorMap), $exclude);
     }
 
 
     /**
-     * get the discrimator value by the given instance
+     * get the discriminator value by the given instance
      * @param NodeRouteInterface $nodeRoute
      * @return \Doctrine\ORM\Mapping\ClassMetadata
      */
-    public function getDiscrimatorByClass(NodeRouteInterface $nodeRoute)
+    public function getDiscriminatorByClass(NodeRouteInterface $nodeRoute)
     {
         return $this->manager->getClassMetadata(get_class($nodeRoute))->discriminatorValue;
     }
 
 
     /**
-     * get the NodeRoute subclass by discrimator value
-     * @param string $discrimator
+     * get the NodeRoute subclass by discriminator value
+     * @param string $discriminator
      * @return NodeRouteInterface
      * @throws \Exception
      */
-    protected function getClassByDiscrimator($discrimator)
+    protected function getClassByDiscriminator($discriminator)
     {
-        if($class = ($this->meta->discriminatorMap[$discrimator])) {
+        if($class = ($this->meta->discriminatorMap[$discriminator])) {
             return $class;
         } else {
             throw new \Exception('class not found');
