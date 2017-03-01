@@ -13,26 +13,26 @@ services:
 
       mm_cmf_routing.node_route_type:
           class: MandarinMedien\MMCmfRoutingBundle\Form\Type\NodeRouteType
-          arguments: [@doctrine.orm.entity_manager]
+          arguments: ["@doctrine.orm.entity_manager"]
           tags:
               - {name: form.type, alias: node_route_type}
 
 
       mm_cmf_routing.node_route_factory:
           class: MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteFactory
-          arguments: [@doctrine.orm.entity_manager]
+          arguments: ["@doctrine.orm.entity_manager"]
 
 
       mm_cmf_routing.node_route_manager:
           class: MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteManager
-          arguments: [@doctrine.orm.entity_manager]
+          arguments: ["@doctrine.orm.entity_manager"]
 
 
       # Validation Constraints
       mm_cmf_routing.validator.node_route_unique:
           class: MandarinMedien\MMCmfRoutingBundle\Validator\Constraints\NodeRouteUniqueValidator
           calls:
-              - ["setManager", [@doctrine.orm.entity_manager]]
+              - ["setManager", ["@doctrine.orm.entity_manager"]]
           tags:
               - { name: validator.constraint_validator, alias: "node_route_unique" }
 
@@ -40,7 +40,7 @@ services:
       # Doctrine Event Listener
       mm_cmf_routing.listener:
           class: MandarinMedien\MMCmfRoutingBundle\EventListener\AutoNodeRouteUpdateListener
-          arguments: [@service_container]
+          arguments: ["@service_container"]
           tags:
               - {name: doctrine.event_listener, event: prePersist}
               - {name: doctrine.event_listener, event: onFlush}
@@ -49,7 +49,7 @@ services:
       mm_cmf_routing.node_route_controller:
           class: MandarinMedien\MMCmfRoutingBundle\Controller\NodeRouteController
           calls:
-              - ["setContainer", [@service_container]]
+              - ["setContainer", ["@service_container"]]
 
 
 
