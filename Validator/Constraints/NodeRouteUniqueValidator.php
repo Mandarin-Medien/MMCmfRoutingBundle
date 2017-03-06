@@ -19,6 +19,10 @@ class NodeRouteUniqueValidator extends ConstraintValidator
      */
     private $manager;
 
+    /**
+     * @param mixed $nodeRoute
+     * @param Constraint $constraint
+     */
     public function validate($nodeRoute, Constraint $constraint)
     {
 
@@ -43,7 +47,9 @@ class NodeRouteUniqueValidator extends ConstraintValidator
         }
     }
 
-
+    /**
+     * @param EntityManager $manager
+     */
     public function setManager(EntityManager $manager)
     {
         $this->manager = $manager;
