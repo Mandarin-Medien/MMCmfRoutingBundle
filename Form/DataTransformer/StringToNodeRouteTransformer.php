@@ -22,9 +22,6 @@ class StringToNodeRouteTransformer implements DataTransformerInterface
 
     public function transform($nodeRoute)
     {
-
-        var_dump($nodeRoute);
-
         if (null === $nodeRoute) {
             return;
         }
