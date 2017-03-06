@@ -20,7 +20,7 @@
   },
   "target-dir": "MandarinMedien/MMCmfRoutingBundle",
   "require": {
-    "mandarinmedien/mmcmfnodebundle": "^0.0",
+    "mandarinmedien/mmcmfnodebundle": "^0.1",
     "brandonwamboldt/utilphp": "1.1.*"
   }
 }
