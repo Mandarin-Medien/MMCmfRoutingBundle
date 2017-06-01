@@ -8,6 +8,7 @@ use Doctrine\ORM\Event\PostFlushEventArgs;
 use MandarinMedien\MMCmfNodeBundle\Entity\Node;
 use MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteManager;
 use Doctrine\ORM\Event\OnFlushEventArgs;
+use MandarinMedien\MMCmfRoutingBundle\Entity\RoutableNodeInterface;
 use MandarinMedien\MMCmfRoutingBundle\Routing\NodeRouteLoader;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\DependencyInjection\Container;
@@ -42,8 +43,8 @@ class AutoNodeRouteUpdateListener
         // update child routes
         $entity = $args->getEntity();
 
-        if (    $entity instanceof Node
-            &&  $entity->isRouteGeneration()
+        if (    $entity instanceof RoutableNodeInterface
+            &&  $entity->hasAutoNodeRouteGeneration()
         ) {
             $routeManager = $this->container->get('mm_cmf_routing.node_route_manager');
             $entity->addRoute($routeManager->generateAutoNodeRoute($entity));
@@ -66,8 +67,8 @@ class AutoNodeRouteUpdateListener
 
         foreach($unit->getScheduledEntityUpdates() as $entity) {
 
-            if(     $entity instanceof Node
-                &&  $entity->isRouteGeneration()
+            if(     $entity instanceof RoutableNodeInterface
+                &&  $entity->hasAutoNodeRouteGeneration()
             ) {
 
                 // check if Node::name has changed
