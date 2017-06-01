@@ -46,10 +46,15 @@ class NodeParamConverter implements ParamConverterInterface
      */
     function supports(ParamConverter $configuration)
     {
-        return in_array(
-            'MandarinMedien\MMCmfNodeBundle\Entity\NodeInterface',
-            class_implements($configuration->getClass())
-        );
+
+        if($configuration->getClass()) {
+            return in_array(
+                'MandarinMedien\MMCmfNodeBundle\Entity\NodeInterface',
+                class_implements($configuration->getClass())
+            );
+        }
+
+        return false;
     }
 
 }
