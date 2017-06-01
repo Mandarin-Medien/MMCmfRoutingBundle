@@ -11,19 +11,6 @@ use MandarinMedien\MMCmfNodeBundle\Entity\Node;
  */
 interface NodeRouteInterface
 {
-
-    /**
-     * @param Node|null $node
-     * @return mixed
-     */
-    public function setNode(Node $node = null);
-
-    /**
-     * @return Node|null
-     */
-    public function getNode();
-
-
     /**
      * @param string$route
      * @return mixed

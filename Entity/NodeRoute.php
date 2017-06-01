@@ -38,30 +38,6 @@ class NodeRoute implements NodeRouteInterface
     }
 
     /**
-     * Set node
-     *
-     * @param Node $node
-     *
-     * @return NodeRoute
-     */
-    public function setNode(Node $node = null)
-    {
-        $this->node = $node;
-
-        return $this;
-    }
-
-    /**
-     * Get node
-     *
-     * @return Node
-     */
-    public function getNode()
-    {
-        return $this->node;
-    }
-
-    /**
      * Set route
      *
      * @param string $route
