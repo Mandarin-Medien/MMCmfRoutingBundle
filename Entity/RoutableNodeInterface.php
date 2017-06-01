@@ -3,9 +3,10 @@
 namespace MandarinMedien\MMCmfRoutingBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use MandarinMedien\MMCmfNodeBundle\Entity\NodeInterface;
 
 
-interface RoutableNodeInterface
+interface RoutableNodeInterface extends NodeInterface
 {
 
     public function addRoute(NodeRouteInterface $nodeRoute);

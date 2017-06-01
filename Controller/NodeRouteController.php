@@ -28,7 +28,7 @@ class NodeRouteController extends Controller
     public function nodeRouteAction(NodeRoute $nodeRoute)
     {
 
-        if($nodeRoute->getNode()) {
+        if($node = $this->get('node')) {
 
             if ($nodeRoute instanceof RedirectNodeRoute) {
                 return $this->redirectAction($nodeRoute);

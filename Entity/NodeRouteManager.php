@@ -2,7 +2,6 @@
 
 namespace MandarinMedien\MMCmfRoutingBundle\Entity;
 
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\ResultSetMapping;
 use MandarinMedien\MMCmfNodeBundle\Entity\Node;
@@ -20,14 +19,14 @@ class NodeRouteManager
 {
 
     /**
-     * @var EntityManager
+     * @var EntityManagerInterface
      */
     protected $manager;
 
 
     /**
      * NodeRouteManager constructor.
-     * @param EntityManager $manager
+     * @param EntityManagerInterface $manager
      */
     public function __construct(EntityManagerInterface $manager)
     {
@@ -38,17 +37,19 @@ class NodeRouteManager
     /**
      * generates a AutoNodeRoute for a given Node
      *
-     * @param NodeInterface $node
+     * @param RoutableNodeInterface $node
      * @return AutoNodeRoute
      */
-    public function generateAutoNodeRoute(NodeInterface $node)
+    public function generateAutoNodeRoute(RoutableNodeInterface $node)
     {
 
         $repository = $this->manager->getRepository(AutoNodeRoute::class);
 
         $route = (new AutoNodeRoute())
-            ->setRoute('/' . $this->slugify($node))
-            ->setNode($node);
+            ->setRoute('/' . $this->slugify($node));
+
+        //$node->addRoute($route);
+
 
         /**
          * @var Node $parent
@@ -124,7 +125,7 @@ class NodeRouteManager
      * @param NodeInterface $node
      * @return AutoNodeRoute
      */
-    protected function getAutoNodeRoute(NodeInterface $node)
+    protected function getAutoNodeRoute(RoutableNodeInterface $node)
     {
         foreach($node->getRoutes() as $route) {
             if($route instanceof AutoNodeRoute) {
