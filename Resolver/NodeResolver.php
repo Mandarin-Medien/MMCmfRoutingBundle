@@ -51,9 +51,9 @@ class NodeResolver
                 ->where('r.id = :route')
                 ->setParameter('route', $route->getId());
 
-            $node = $qb->getQuery()->getSingleResult();
+            $node = $qb->getQuery()->getResult();
 
-            if($node) return $node;
+            if($node) return $node[0];
         }
 
         return null;
