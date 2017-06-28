@@ -100,7 +100,8 @@ class NodeRouteManager
 
             // recursive loop
             foreach ($node->getNodes() as $subnode) {
-                $this->getAutoNodeRoutesRecursive($subnode, $this->getAutoNodeRoute($node)->getRoute(), $routeObjects);
+                if($subnode instanceof RoutableNodeInterface)
+                    $this->getAutoNodeRoutesRecursive($subnode, $this->getAutoNodeRoute($node)->getRoute(), $routeObjects);
             }
         }
 
