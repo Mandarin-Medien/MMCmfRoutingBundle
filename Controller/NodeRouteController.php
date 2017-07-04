@@ -36,13 +36,25 @@ class NodeRouteController extends Controller
 
                 if ($nodeRoute->getNode() instanceof TemplatableNodeInterface) {
 
-                    return $this->render(
+                    $response = $this->render(
                         $this->get('mm_cmf_content.template_manager')->getTemplate($nodeRoute->getNode()),
                         array(
                             'node' => $nodeRoute->getNode(),
                             'route' => $nodeRoute
                         )
                     );
+
+                    /**
+                     * should be configurable
+                     * cache for 1800 seconds
+                     */
+                    $response->setSharedMaxAge(1800);
+
+                    // (optional) set a custom Cache-Control directive
+                    $response->headers->addCacheControlDirective('must-revalidate', true);
+
+                    return $response;
+
                 } else {
                     throw new NotFoundHttpException();
                 }
