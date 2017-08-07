@@ -28,7 +28,7 @@ class NodeRouteController extends Controller
     public function nodeRouteAction(NodeRoute $nodeRoute)
     {
 
-        if($node = $this->get('node')) {
+        if($node = $this->get('mm_cmf_routing.node_resolver')->resolve($nodeRoute)) {
 
             if ($nodeRoute instanceof RedirectNodeRoute) {
                 return $this->redirectAction($nodeRoute);
