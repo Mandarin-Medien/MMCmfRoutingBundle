@@ -6,6 +6,7 @@ namespace MandarinMedien\MMCmfRoutingBundle\EventListener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use MandarinMedien\MMCmfNodeBundle\Entity\Node;
+use MandarinMedien\MMCmfRoutingBundle\Entity\AutoNodeRoute;
 use MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteManager;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use MandarinMedien\MMCmfRoutingBundle\Entity\RoutableNodeInterface;
@@ -61,9 +62,9 @@ class AutoNodeRouteUpdateListener
      */
     public function onFlush(OnFlushEventArgs $args)
     {
-
         $unit = $args->getEntityManager()->getUnitOfWork();
-        $routeManager = $this->container->get('mm_cmf_routing.node_route_manager');;
+        $routeManager = $this->container->get('mm_cmf_routing.node_route_manager');
+
 
         foreach($unit->getScheduledEntityUpdates() as $entity) {
 
@@ -71,11 +72,29 @@ class AutoNodeRouteUpdateListener
                 &&  $entity->hasAutoNodeRouteGeneration()
             ) {
 
+                $hasNodeRoute = false;
+                $routeGenerated = false;
+
+                foreach ($entity->getRoutes() as $route) {
+                    if($route instanceof AutoNodeRoute) {
+                        $hasNodeRoute = true;
+                        break;
+                    }
+                }
+
+                if(!$hasNodeRoute) {
+                    $routeManager = $this->container->get('mm_cmf_routing.node_route_manager');
+                    $entity->addRoute($routeManager->generateAutoNodeRoute($entity));
+                    $routeGenerated = true;
+                }
+
+
                 // check if Node::name has changed
                 $changed = $unit->getEntityChangeSet($entity);
 
                 if(     array_key_exists('name', $changed)
                     ||  array_key_exists('parent', $changed)
+                    ||  $routeGenerated
                 ) {
 
                     // update all child AutoNodeRoutes
