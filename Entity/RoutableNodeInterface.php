@@ -11,6 +11,9 @@ interface RoutableNodeInterface extends NodeInterface
 
     public function addRoute(NodeRouteInterface $nodeRoute);
 
+    /**
+     * @return ArrayCollection|NodeRoute[]
+     */
     public function getRoutes();
 
     public function removeRoute(NodeRouteInterface $nodeRoute);
