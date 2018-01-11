@@ -14,11 +14,8 @@
     }
   ],
   "autoload": {
-    "psr-0": {
-      "MandarinMedien\\MMCmfRoutingBundle": ""
-    }
+    "psr-4": {"MandarinMedien\\MMCmfRoutingBundle\\": ""}
   },
-  "target-dir": "MandarinMedien/MMCmfRoutingBundle",
   "require": {
     "mandarinmedien/mmcmfnodebundle": "^0.2",
     "brandonwamboldt/utilphp": "1.1.*"
