@@ -34,12 +34,12 @@ class NodeRouteController extends Controller
                 return $this->redirectAction($nodeRoute);
             } else {
 
-                if ($nodeRoute->getNode() instanceof TemplatableNodeInterface) {
+                if ($node instanceof TemplatableNodeInterface) {
 
                     $response = $this->render(
-                        $this->get('mm_cmf_content.template_manager')->getTemplate($nodeRoute->getNode()),
+                        $this->get('mm_cmf_content.template_manager')->getTemplate($node),
                         array(
-                            'node' => $nodeRoute->getNode(),
+                            'node' => $node,
                             'route' => $nodeRoute
                         )
                     );
@@ -80,7 +80,7 @@ class NodeRouteController extends Controller
 
         $status = $nodeRoute->getStatusCode();
 
-        foreach($nodeRoute->getNode()->getRoutes() as $route) {
+        foreach($node->getRoutes() as $route) {
             if($route instanceof AutoNodeRoute) {
                 return $this->redirectToRoute("mm_cmf_node_route", array(
                     'route' => trim($route->getRoute(), '/')
