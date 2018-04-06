@@ -1,11 +1,5 @@
 services:
 
-      mm_cmf_routing.node_converter:
-          class: MandarinMedien\MMCmfRoutingBundle\Request\NodeParamConverter
-          arguments: ["@doctrine.orm.entity_manager"]
-          tags:
-              - {name: request.param_converter, priority: 1, converter: mm_cmf_routing.node_converter }
-
       mm_cmf_routing.node_route_converter:
             class: MandarinMedien\MMCmfRoutingBundle\Request\NodeRouteParamConverter
             arguments: ["@doctrine.orm.entity_manager"]
