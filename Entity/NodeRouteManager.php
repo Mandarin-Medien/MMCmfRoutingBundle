@@ -43,18 +43,14 @@ class NodeRouteManager
     public function generateAutoNodeRoute(RoutableNodeInterface $node)
     {
 
-        $repository = $this->manager->getRepository(AutoNodeRoute::class);
 
         $route = (new AutoNodeRoute())
             ->setRoute('/' . $this->slugify($node));
 
-        //$node->addRoute($route);
-
-
         /**
          * @var Node $parent
          */
-        while (!is_null($parent = $node->getParent())) {
+        while (!is_null($parent = $node->getParent()) && $parent instanceof RoutableNodeInterface) {
             $route->setRoute($this->getAutoNodeRoute($parent) . $route->getRoute());
             $node = $parent;
         }
@@ -63,9 +59,6 @@ class NodeRouteManager
         $route->setRoute(
             $route->getRoute().$this->getIncrement($route->getRoute())
         );
-
-
-        //var_dump($route->getRoute());
 
         return $route;
     }
@@ -115,7 +108,7 @@ class NodeRouteManager
      * @param Node $node
      * @return string
      */
-    public function slugify(Node $node)
+    public function slugify(NodeInterface $node)
     {
         return util::slugify($node->getName());
     }
