@@ -4,6 +4,7 @@ namespace MandarinMedien\MMCmfRoutingBundle\Resolver;
 
 use Doctrine\ORM\EntityManagerInterface;
 use MandarinMedien\MMCmfNodeBundle\Entity\Node;
+use MandarinMedien\MMCmfNodeBundle\Factory\NodeFactory;
 use MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteInterface;
 use MandarinMedien\MMCmfRoutingBundle\Entity\RoutableNodeInterface;
 
@@ -18,19 +19,32 @@ use MandarinMedien\MMCmfRoutingBundle\Entity\RoutableNodeInterface;
 class NodeResolver
 {
 
+    /**
+     * @var EntityManagerInterface
+     */
     protected $manager;
 
+
+    /**
+     * @var array
+     */
     protected $classes;
+
+    /**
+     * @var NodeFactory
+     */
+    protected $factory;
 
 
     /**
      * NodeResolver constructor.
      * @param EntityManagerInterface $manager
+     * @param NodeFactory $factory
      */
-    public function __construct(EntityManagerInterface $manager)
+    public function __construct(EntityManagerInterface $manager, NodeFactory $factory)
     {
+        $this->factory = $factory;
         $this->manager = $manager;
-
         $this->classes = $this->getRoutableNodeClasses();
     }
 
@@ -66,7 +80,7 @@ class NodeResolver
      */
     protected function getRoutableNodeClasses()
     {
-        $metadata = $this->manager->getClassMetadata(Node::class);
+        $metadata = $this->manager->getClassMetadata($this->factory->getRootClass());
         $routables = array_values(array_filter($metadata->subClasses, function($subNode) {
             $reflection = new \ReflectionClass($subNode);
             return $reflection->implementsInterface(RoutableNodeInterface::class);

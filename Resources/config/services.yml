@@ -48,7 +48,7 @@ services:
 
       mm_cmf_routing.node_resolver:
           class: MandarinMedien\MMCmfRoutingBundle\Resolver\NodeResolver
-          arguments: ["@doctrine.orm.entity_manager"]
+          arguments: ["@doctrine.orm.entity_manager", "@mm_cmf_node.factory"]
 
 
 
