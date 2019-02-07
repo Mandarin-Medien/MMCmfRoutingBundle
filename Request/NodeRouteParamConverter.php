@@ -4,6 +4,7 @@ namespace MandarinMedien\MMCmfRoutingBundle\Request;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use MandarinMedien\MMCmfRoutingBundle\Entity\NodeRoute;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +13,7 @@ class NodeRouteParamConverter implements ParamConverterInterface
 {
 
     private $manager;
-    private $repositoryClass = 'MandarinMedien\MMCmfRoutingBundle\Entity\NodeRoute';
+    private $repositoryClass = NodeRoute::class;
 
     public function __construct(EntityManagerInterface $manager)
     {
@@ -25,12 +26,14 @@ class NodeRouteParamConverter implements ParamConverterInterface
     function apply(Request $request, ParamConverter $configuration)
     {
 
-        if(!is_null(
+        $route = $request->attributes->get('route');
+
+        if($route !== null && !is_null(
             $route = $this->manager
                 ->getRepository($this->repositoryClass)
                 ->findOneBy(
                     array(
-                        'route' => '/'.$request->attributes->get('route')
+                        'route' => '/'.$route
                     )
                 )
         )) {
@@ -49,6 +52,6 @@ class NodeRouteParamConverter implements ParamConverterInterface
      */
     function supports(ParamConverter $configuration)
     {
-        return $configuration->getClass() == 'MandarinMedien\MMCmfRoutingBundle\Entity\NodeRoute';
+        return $configuration->getClass() == $this->repositoryClass;
     }
 }
