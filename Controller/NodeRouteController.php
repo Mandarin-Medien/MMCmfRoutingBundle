@@ -89,6 +89,14 @@ class NodeRouteController extends Controller
                 ), $status);
             }
         }
+        
+        foreach($node->getRoutes() as $route) {
+            if($route instanceof AliasNodeRoute) {
+                return $this->redirectToRoute("mm_cmf_node_route", array(
+                    'route' => trim($route->getRoute(), '/')
+                ), $status);
+            }
+        }
     }
 
     /**
