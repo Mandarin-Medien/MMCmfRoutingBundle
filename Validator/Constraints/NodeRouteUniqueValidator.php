@@ -34,9 +34,13 @@ class NodeRouteUniqueValidator extends ConstraintValidator
             ->from('MMCmfRoutingBundle:NodeRoute', 'r')
             ->where("r.route = ?1")
             ->andWhere('r.id != ?2')
-            ->setParameter('1', $nodeRoute->getRoute())
-            ->setParameter("2", $nodeRoute->getId())
-            ->setMaxResults(1);
+            ->setParameter('1', $nodeRoute->getRoute());
+
+        if($nodeRoute->getId())
+            $qb->andWhere('r.id != ?2')
+            ->setParameter("2", $nodeRoute->getId());
+
+        $qb->setMaxResults(1);
 
         $existing = $qb->getQuery()->execute();
 
