@@ -77,8 +77,10 @@ class NodeRouteController extends Controller
      */
     public function redirectAction(RedirectNodeRoute $nodeRoute)
     {
-
         $status = $nodeRoute->getStatusCode();
+
+        $nodeRouteResolver = $this->get('mm_cmf_routing.node_resolver');
+        $node =  $nodeRouteResolver->resolve($nodeRoute);
 
         foreach($node->getRoutes() as $route) {
             if($route instanceof AutoNodeRoute) {
