@@ -3,35 +3,41 @@ services:
       mm_cmf_routing.node_converter:
           class: MandarinMedien\MMCmfRoutingBundle\Request\NodeParamConverter
           arguments: ["@doctrine.orm.entity_manager"]
+          public: true
           tags:
               - {name: request.param_converter, priority: 1, converter: mm_cmf_routing.node_converter }
 
       mm_cmf_routing.node_route_converter:
             class: MandarinMedien\MMCmfRoutingBundle\Request\NodeRouteParamConverter
             arguments: ["@doctrine.orm.entity_manager"]
+            public: true
             tags:
                 - {name: request.param_converter, priority: 1, converter: mm_cmf_routing.node_route_converter }
 
       mm_cmf_routing.node_route_type:
           class: MandarinMedien\MMCmfRoutingBundle\Form\Type\NodeRouteType
           arguments: ["@doctrine.orm.entity_manager"]
+          public: true
           tags:
               - {name: form.type, alias: node_route_type}
 
 
       mm_cmf_routing.node_route_factory:
           class: MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteFactory
+          public: true
           arguments: ["@doctrine.orm.entity_manager"]
 
 
       mm_cmf_routing.node_route_manager:
           class: MandarinMedien\MMCmfRoutingBundle\Entity\NodeRouteManager
           arguments: ["@doctrine.orm.entity_manager"]
+          public: true
 
 
       # Validation Constraints
       mm_cmf_routing.validator.node_route_unique:
           class: MandarinMedien\MMCmfRoutingBundle\Validator\Constraints\NodeRouteUniqueValidator
+          public: true
           calls:
               - ["setManager", ["@doctrine.orm.entity_manager"]]
           tags:
@@ -42,6 +48,7 @@ services:
       mm_cmf_routing.listener:
           class: MandarinMedien\MMCmfRoutingBundle\EventListener\AutoNodeRouteUpdateListener
           arguments: ["@service_container"]
+          public: true
           tags:
               - {name: doctrine.event_listener, event: prePersist}
               - {name: doctrine.event_listener, event: onFlush}
@@ -49,12 +56,14 @@ services:
 
       mm_cmf_routing.node_route_controller:
           class: MandarinMedien\MMCmfRoutingBundle\Controller\NodeRouteController
+          public: true
           calls:
               - ["setContainer", ["@service_container"]]
 
       mm_cmf_routing.node_resolver:
           class: MandarinMedien\MMCmfRoutingBundle\Resolver\NodeResolver
           arguments: ["@doctrine.orm.entity_manager"]
+          public: true
 
 
 

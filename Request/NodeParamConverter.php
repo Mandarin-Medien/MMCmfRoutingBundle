@@ -21,7 +21,9 @@ class NodeParamConverter implements ParamConverterInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param Request $request
+     * @param ParamConverter $configuration
+     * @return bool
      */
     function apply(Request $request, ParamConverter $configuration)
     {
@@ -42,7 +44,8 @@ class NodeParamConverter implements ParamConverterInterface
 
 
     /**
-     * {@inheritdoc}
+     * @param ParamConverter $configuration
+     * @return bool
      */
     function supports(ParamConverter $configuration)
     {

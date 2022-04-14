@@ -4,19 +4,19 @@ namespace MandarinMedien\MMCmfRoutingBundle\Controller;
 
 use MandarinMedien\MMCmfRoutingBundle\Entity\AutoNodeRoute;
 use MandarinMedien\MMCmfRoutingBundle\Entity\RedirectNodeRoute;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use MandarinMedien\MMCmfNodeBundle\Entity\Node;
 use MandarinMedien\MMCmfRoutingBundle\Entity\NodeRoute;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use MandarinMedien\MMCmfContentBundle\Entity\TemplatableNodeInterface;
 
-class NodeRouteController extends Controller
+class NodeRouteController extends AbstractController
 {
 
     /**
      * @var string default Template
      */
-    protected $defaultView = "MMCmfRoutingBundle:Default:index.html.twig";
+    protected $defaultView = "@MMCmfRouting/Default/index.html.twig";
 
 
     /**
