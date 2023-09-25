@@ -17,11 +17,19 @@ class NodeRouteType extends AbstractType
 
     private $manager;
 
+    /**
+     * @param EntityManager $manager
+     */
     public function __construct(EntityManager $manager)
     {
         $this->manager = $manager;
     }
 
+
+    /**
+     * @param OptionsResolver $resolver
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
@@ -31,12 +39,19 @@ class NodeRouteType extends AbstractType
 
     }
 
+
+    /**
+     * @return string
+     */
     public function getParent()
     {
         return CollectionType::class;
     }
 
 
+    /**
+     * @return string
+     */
     public function getBlockPrefix()
     {
         return "node_route_type";

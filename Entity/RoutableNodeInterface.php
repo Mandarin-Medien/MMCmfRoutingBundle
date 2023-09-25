@@ -3,6 +3,7 @@
 namespace MandarinMedien\MMCmfRoutingBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use MandarinMedien\MMCmfNodeBundle\Entity\NodeInterface;
 
 
@@ -11,9 +12,6 @@ interface RoutableNodeInterface extends NodeInterface
 
     public function addRoute(NodeRouteInterface $nodeRoute);
 
-    /**
-     * @return ArrayCollection|array|NodeRoute[]
-     */
     public function getRoutes();
 
     public function removeRoute(NodeRouteInterface $nodeRoute);

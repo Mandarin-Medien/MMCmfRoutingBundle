@@ -10,11 +10,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class NodeRouteType extends AbstractType
 {
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
        $builder->add('route');
     }
 
+
+    /**
+     * @param OptionsResolver $resolver
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
@@ -22,6 +33,10 @@ class NodeRouteType extends AbstractType
             ->setDefault('cascade_validation', true);
     }
 
+
+    /**
+     * @return string
+     */
     public function getBlockPrefix()
     {
         return 'mm_cmf_routing_noderoute_type';
